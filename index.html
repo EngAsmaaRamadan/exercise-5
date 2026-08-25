@@ -12,6 +12,7 @@
 	<link rel="stylesheet" href="css/index.responsive.css">
 </head>
 <body>
+	<!-- don't forget the required attribute after js done-->
 <section id="Register" class="py-5">
 	<div class="container">
 		<div class="head text-center mb-5">
@@ -22,32 +23,41 @@
 				<h4 class="text-center mt-2 mb-4">Students System</h4>
 				<div class="input-group flex-nowrap mb-3">
 				  <label class="input-group-text" for="FirstName"><i class="fa-solid fa-user"></i></label>
-				  <input type="text" class="form-control" placeholder="First Name *" id="FirstName">
+				  <input type="text" class="form-control" placeholder="First Name *" id="FirstName" name="firstName">
 				</div>
 
 				<div class="input-group flex-nowrap mb-3">
 				  <label class="input-group-text" for="LastName"><i class="fa-solid fa-user"></i></label>
-				  <input type="text" class="form-control" placeholder="Last Name *" id="LastName">
+				  <input type="text" class="form-control" placeholder="Last Name *" id="LastName" name="lastName">
 				</div>
 
 				<div class="input-group flex-nowrap mb-3">
 				  <label class="input-group-text" for="Email"><i class="fa-solid fa-envelope"></i></label>
-				  <input type="text" class="form-control" placeholder="Email *" id="Email">
+				  <input type="text" class="form-control" placeholder="Email *" id="Email" name="email">
 				</div>
 
 				<div class="input-group flex-nowrap mb-3">
 				  <label class="input-group-text" for="Age"><i class="fa-solid fa-hashtag"></i></label>
-				  <input type="text" class="form-control" placeholder="Age *" id="Age">
+				  <input type="text" class="form-control" placeholder="Age *" id="Age" name="age">
 				</div>
 
 				<div class="input-group flex-nowrap mb-3">
 				  <label class="input-group-text" for="Phone"><i class="fa-solid fa-mobile"></i></label>
-				  <input type="text" class="form-control" placeholder="Phone *" id="Phone">
+				  <input type="text" class="form-control" placeholder="Phone *" id="Phone" name="phone">
 				</div>
 				<button class="btn w-100 btn-success">Add</button>
 			</form>
 		</div>
 	</div>
+</section>
+<section id="Search">
+	<form action="" class="m-auto pb-5 px-4">
+		<div class="search-input input-group flex-nowrap m-auto mb-3">
+			<label class="input-group-text" for="Search"><i class="fa-solid fa-magnifying-glass"></i></label>
+			<!-- why when click on label not the same when click on the input??? although the id and for are equal -->
+			<input type="text" class="form-control" placeholder="Search..." id="Search" name="search">
+		</div>
+	</form>
 </section>
 <script src="js/functions.js"></script>
 <script src="js/index.js"></script>

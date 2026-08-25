@@ -8,6 +8,7 @@
     background: -webkit-linear-gradient(to right,#eaeaea,#dbdbdb,#f2f2f2,#ada996);
     background: linear-gradient(to right, #eaeaea, #dbdbdb, #f2f2f2, #ada996);
     border-radius: 20px;
+    color: var(--main-color);
 }
 
 #Register .container form label{
@@ -15,6 +16,11 @@
 	width: 9%;
 }
 
-i,h4{
+i{
 	color: var(--main-color);
+	cursor: pointer;
+}
+
+#Search .search-input {
+	width: 300px;
 }
