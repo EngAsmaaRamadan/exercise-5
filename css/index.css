@@ -1,16 +1,18 @@
-#Register .container  img{
-	max-width: 70%;
+#Register .container .head img{
+	width: 15%;
 }
 
 #Register .container form{
-	width: 400px;
+	width: 500px;
 	background: #ada996;
     background: -webkit-linear-gradient(to right,#eaeaea,#dbdbdb,#f2f2f2,#ada996);
     background: linear-gradient(to right, #eaeaea, #dbdbdb, #f2f2f2, #ada996);
+    border-radius: 20px;
 }
 
 #Register .container form label{
 	background-color: #f8f9fa;
+	width: 9%;
 }
 
 i,h4{
