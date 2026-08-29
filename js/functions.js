@@ -1,24 +1,85 @@
-function addStudent(student) {
-	validateStudent(student);
-	// studentsData.push(student);
-	console.log(student);
+function getStudent(student,id){
+	student = {id : id};
+	registerInputs.forEach(function(input){
+		student[input.name] = input.value;
+	});
+	return student;
 }
 
-function validateStudent(student){
-	let regexInputs = {
-		firstName : /^[A-Za-z]+$/,
-		lastName : /^[A-Za-z]+$/,
-		email : /^[A-Za-z_][A-Za-z0-9_\.]+@(gmail|yahoo)\.(com|org)$/,
-		age : /^[0-9]{2}$/,
-		phone : /^(02)?01(0|1|2|5)[0-9]{8}$/,
-	};
+function checkUnique(input){
+	for(let student of students){
+		if(student[input.name] == input.value){
+			return `this ${input.name} is used before`;//using return with forEach like continue in for loop, that ignore this iteration and start from the next element(iteration)
+		}	
+	}
+}
 
-	let inputName,
-		inputValue;
-	for(let field in student){
-		inputName = field;
-		inputValue = student[field];
-		console.log(regexInputs[inputName].test(inputValue));
+function decisionOnInCorrect(input,msg){
+	errorEle.classList.remove('d-none');
+	input.classList.remove('is-valid');
+	input.classList.add('is-invalid');
+	errorEle.textContent = msg;
+	input.dataset.valid = false;
+}
+
+function decisionOnCorrect(input){
+	errorEle.classList.add('d-none');
+	input.classList.remove('is-invalid');
+	input.classList.add('is-valid');
+	input.dataset.valid = true;
+}
+
+function checkInput(input){
+	isInvalid = !regexInputs[input.name].test(input.value);
+	isEmpty = input.value === '';
+	errorEle = document.querySelector(`p.alert[data-error-name="${input.name}"]`);
+	errorMsg = '';
+	if(isEmpty){
+		errorMsg = "This field is required";
+	}else if(isInvalid){
+		errorMsg = "Invalid Field";
 	}
 
+	if(isEmpty || isInvalid){
+		//inCorrect input
+		decisionOnInCorrect(input,errorMsg);
+	}else{
+		//Correct input
+		if( ( input.name == 'email' || input.name == 'phone' ) && checkUnique(input) !== undefined){
+			decisionOnInCorrect(input,checkUnique(input));
+		}else{
+			decisionOnCorrect(input);
+		}
+	}
+}
+
+function showStudent(student){
+	tableBody.innerHTML += `
+		<tr>
+			<th>${student.id}</th>
+			<td>${student.firstName}</td>
+			<td>${student.lastName}</td>
+			<td>${student.email}</td>
+			<td>${student.age}</td>
+			<td>${student.phone}</td>
+			<td>
+				<div class="buttons">
+					<button class="btn btn-info text-light me-2">Edit</button>
+					<button class="btn btn-danger">Delete</button>
+				</div>
+			</td>
+		</tr>
+	`;
+	saveInLocalStorage();
+}
+
+function saveInLocalStorage(){
+	localStorage.setItem('students',JSON.stringify(students));
+}
+
+function resetForm(that){
+	registerInputs.forEach(function(input){
+			input.classList.remove('is-valid');
+		});
+	that.reset();
 }
