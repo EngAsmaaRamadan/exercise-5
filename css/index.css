@@ -30,3 +30,12 @@ i{
 #Search .search-input {
 	width: 300px;
 }
+
+#Data table.table{
+	width: max-content;
+	min-width: 100%;
+}
+
+#Data table tr td[colspan="7"]{
+	color:#664d03;
+}

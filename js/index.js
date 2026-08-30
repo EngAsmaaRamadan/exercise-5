@@ -12,28 +12,34 @@ let registerForm = document.querySelector("#Register form"),
 		age : /^[0-9]{2}$/,
 		phone : /^(02)?01(0|1|2|5)[0-9]{8}$/,
 	},
-	tableBody = document.querySelector("table tbody");
+	resetIcon = registerForm.querySelector('.reset-icon'),
+	tableBody = document.querySelector("table tbody"),
+	searchInput = document.querySelector('input#Search');
 
+if(localStorage.getItem("students") === null){
+	updateLocalStorage();
+}else{
+	students = JSON.parse(localStorage.getItem('students'));
+	id = students[students.length - 1]?.id ?? 0;
+	showStudents(students);
+	isNoData(students);
+}
 
 registerForm.addEventListener('submit',function(e){
 	e.preventDefault();
-
-	let inputFocus = registerForm.querySelector("input:focus");
-	//to blur on last input focus when i press enter while i am focus on this input
-	inputFocus?.blur();
-
-	let invalidInput = registerForm.querySelector("input.invalid"),//select first input that invalid
-		invalidInputDataSet = registerForm.querySelector('input[data-valid="false"]');
-
-	//if invalid input design or empty input return
-	if(invalidInput != null || invalidInputDataSet != null){
-		return;
+	let formType = registerForm.getAttribute('data-type');
+	if(formType == 'add'){
+		addStudent();
+	}else if(formType == 'edit'){
+		editStudent();
+		let formButton = registerForm.querySelector('button');
+		convertButton(formButton,"Add");
 	}
 
-	student = getStudent(student,++id);
-	students.push(student);
-	
-	showStudent(student);
-	resetForm(this);
+	resetForm();//to prevent error alert This field is required when i press enter on done edit data and press out of input
 });
 
+searchInput.addEventListener('keyup',function(){
+	console.log(this.value);
+	search(this.value);
+});
