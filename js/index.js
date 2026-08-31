@@ -13,6 +13,7 @@ let registerForm = document.querySelector("#Register form"),
 		phone : /^[\s]*(02)?01(0|1|2|5)[0-9]{8}[\s]*$/,	
 	},
 	resetIcon = registerForm.querySelector('.reset-icon'),
+	resetButton = registerForm.querySelector('.clear'),
 	tableBody = document.querySelector("table tbody"),
 	searchInput = document.querySelector('input#Search');
 
@@ -25,8 +26,20 @@ if(localStorage.getItem("students") === null){
 	isNoData(students);
 }
 
+if(registerForm.getAttribute('data-type') == 'add'){
+	registerInputs.forEach(function(input){
+		input.addEventListener('focus',function(){
+			makeEffectButton();
+		});
+		input.addEventListener('blur',function(){
+			makeEffectButton();
+		});
+	});
+}
+
 registerForm.addEventListener('submit',function(e){
 	e.preventDefault();
+	resetButton.classList.add('d-none');
 	let formType = registerForm.getAttribute('data-type');
 	if(formType == 'add'){
 		addStudent();

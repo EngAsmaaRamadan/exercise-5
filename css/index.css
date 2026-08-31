@@ -17,6 +17,12 @@
     right: 20px;
 }
 
+#Register .container form .clear{
+	position: absolute;
+	top: 8%;
+	right: -15%;
+}
+
 #Register .container form label{
 	background-color: #f8f9fa;
 	width: 9%;

@@ -125,7 +125,7 @@ function findStudentIndex(id){
 function insertStudent(id){
 	resetForm();
 	let editStudent = students.find((student) => (student.id == id) ),
-		formButton = registerForm.querySelector('button');
+		formButton = registerForm.querySelector('button.add');
 
 	registerInputs.forEach(function(input){
 		input.value = editStudent[input.name];
@@ -139,12 +139,21 @@ function insertStudent(id){
 	let otherButtons = document.querySelectorAll('#Data button');
 	disabledButtons(otherButtons,1);
 	resetIcon.classList.remove('d-none');
+	resetButton.classList.add('d-none');
 	resetIcon.addEventListener('click',function(){
 		registerForm.setAttribute('data-type','add');
 		convertButton(formButton,'Add');
 		resetForm();
 		resetIcon.classList.add('d-none');
 		disabledButtons(otherButtons,2);
+	});
+}
+
+function makeEffectButton(){
+	resetButton.classList.remove('d-none');
+	resetButton.addEventListener('click',function(){
+		resetForm();
+		resetButton.classList.add('d-none');
 	});
 }
 
