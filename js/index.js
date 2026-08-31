@@ -7,6 +7,7 @@ let registerForm = document.querySelector("#Register form"),
 	isEmpty,
 	isInvalid,
 	inputValue,
+	inputFocus,
 	id = 0,
 	regexInputs = {
 		firstName : /^[\s]*[A-Za-z]{3,}[\s]*$/,
@@ -29,16 +30,29 @@ if(localStorage.getItem("students") === null){
 	isNoData(students);
 }
 
+resetButton.addEventListener('click',function(){
+		resetForm();
+		resetButton.classList.add('d-none');
+});
+
 if(registerForm.getAttribute('data-type') == 'add'){
 	registerInputs.forEach(function(input){
 		input.addEventListener('focus',function(){
-			makeEffectButton();
+			resetButton.classList.remove('d-none');
 		});
 		input.addEventListener('blur',function(){
-			makeEffectButton();
+			resetButton.classList.remove('d-none');
 		});
 	});
 }
+
+registerInputs.forEach(function(input){
+	input.addEventListener('blur',function(){
+		console.log(input.value);
+		checkInput(input);
+	});
+});
+
 
 registerForm.addEventListener('submit',function(e){
 	e.preventDefault();
@@ -51,7 +65,7 @@ registerForm.addEventListener('submit',function(e){
 		convertButton(formButton,"Add");
 	}
 	resetButton.classList.add('d-none');
-	resetForm();//to prevent error alert This field is required when i press enter on done edit data and press out of input
+	// resetForm();
 });
 
 searchInput.addEventListener('keyup',function(){
