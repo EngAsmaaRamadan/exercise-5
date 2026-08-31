@@ -72,13 +72,25 @@ function showStudent(student){
 			<td>${student.phone}</td>
 			<td>
 				<div class="buttons">
-					<button class="btn btn-info text-light me-2 edit" onclick="insertStudent(${student.id})">Edit</button>
+					<button class="btn btn-info text-light me-2 edit" onclick="insertStudent(${student.id},this)" data-type="edit" >Edit</button>
 					<button class="btn btn-danger delete" onclick="deleteStudent(${student.id},this);">Delete</button>
 				</div>
 			</td>
 		</tr>
 	`;
 	isNoData(students);
+	let editOrUndoBtn = tableBody.querySelector('button.edit');
+	checkEditOrUndo(editOrUndoBtn);
+}
+
+function checkEditOrUndo(btn){
+
+	//btn.addEventListener('click',function(e){
+		console.log('ok');
+		let BtnType = btn.getAttribute('data-type');
+		return BtnType;
+			
+		
 }
 
 function addStudent(){
@@ -128,7 +140,7 @@ function findStudentIndex(id){
 	return students.findIndex((student) => (student.id == id) );
 }
 
-function insertStudent(id){
+function insertStudent(id,that){
 	resetForm();
 	let editStudent = students.find((student) => (student.id == id) ),
 		formButton = registerForm.querySelector('button.add');
@@ -137,22 +149,40 @@ function insertStudent(id){
 		input.value = editStudent[input.name];
 		input.dataset.valid = true;//because when press edit it doesn't edit or add because of data-valid="false" (because form was empty)
 	});
+	let otherButtons = document.querySelectorAll('#Data button');
+	disabledButtons(otherButtons,1);
 
 	registerForm.dataset.type = 'edit';
 	convertButton(formButton,'Edit');
+
 	registerForm.setAttribute('data-edit-student-id', id);
-	
-	let otherButtons = document.querySelectorAll('#Data button');
-	disabledButtons(otherButtons,1);
-	resetIcon.classList.remove('d-none');
-	resetButton.classList.add('d-none');
-	resetIcon.addEventListener('click',function(){
-		registerForm.setAttribute('data-type','add');
-		convertButton(formButton,'Add');
+	that.removeAttribute('disabled');
+	let BtnType = that.getAttribute('data-type');
+	if(BtnType == 'edit'){
+		that.classList.add('btn-primary');
+		that.classList.remove('btn-info');
+		that.textContent = 'undo';
+		that.dataset.type = 'reset';
+		resetIcon.classList.remove('d-none');
+		resetIcon.addEventListener('click',function(){
+			registerForm.setAttribute('data-type','add');
+			convertButton(formButton,'Add');
+			resetForm();
+			resetIcon.classList.add('d-none');
+			disabledButtons(otherButtons,2);
+		});
+	}else if(BtnType == 'reset'){
+		that.classList.remove('btn-primary');
+		that.classList.add('btn-info');
+		that.textContent = 'Edit';
+		that.dataset.type = 'edit';
+		registerForm.dataset.type = 'add';
 		resetForm();
-		resetIcon.classList.add('d-none');
 		disabledButtons(otherButtons,2);
-	});
+		registerForm.dataset.type = 'add';
+		convertButton(formButton,'Add');
+		resetIcon.classList.add('d-none');
+	}
 }
 
 function disabledButtons(buttons,num){
@@ -185,16 +215,16 @@ function editStudent(){
 		<td>${student.phone}</td>
 		<td>
 			<div class="buttons">
-				<button class="btn btn-info text-light me-2" onclick="insertStudent(${student.id})">Edit</button>
+				<button class="btn btn-info text-light me-2" onclick="insertStudent(${student.id},this)" data-type="edit" >Edit</button>
 				<button class="btn btn-danger" onclick="deleteStudent(${student.id},this);">Delete</button>
 			</div>
 		</td>
 	`;
-	resetForm();
 	checkInvalidaityOrEmpty();
 	resetIcon.classList.add('d-none');
 	let otherButtons = document.querySelectorAll('#Data button');
 	disabledButtons(otherButtons,2);
+	resetForm();
 }
 
 function convertButton(button,word){
