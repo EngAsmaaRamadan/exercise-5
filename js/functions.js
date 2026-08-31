@@ -220,6 +220,10 @@ function editStudent(){
 			</div>
 		</td>
 	`;
+	trEle.classList.add('table-primary');
+	setTimeout(function(){
+		trEle.classList.remove('table-primary');
+	},1000);
 	checkInvalidaityOrEmpty();
 	resetIcon.classList.add('d-none');
 	let otherButtons = document.querySelectorAll('#Data button');
