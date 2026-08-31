@@ -30,11 +30,6 @@ if(localStorage.getItem("students") === null){
 	isNoData(students);
 }
 
-resetButton.addEventListener('click',function(){
-		resetForm();
-		resetButton.classList.add('d-none');
-});
-
 if(registerForm.getAttribute('data-type') == 'add'){
 	registerInputs.forEach(function(input){
 		input.addEventListener('focus',function(){
@@ -48,7 +43,6 @@ if(registerForm.getAttribute('data-type') == 'add'){
 
 registerInputs.forEach(function(input){
 	input.addEventListener('blur',function(){
-		console.log(input.value);
 		checkInput(input);
 	});
 });
@@ -65,10 +59,14 @@ registerForm.addEventListener('submit',function(e){
 		convertButton(formButton,"Add");
 	}
 	resetButton.classList.add('d-none');
-	// resetForm();
 });
 
 searchInput.addEventListener('keyup',function(){
 	console.log(this.value);
 	search(this.value);
+});
+
+resetButton.addEventListener('click',function(){
+		resetForm();
+		resetButton.classList.add('d-none');
 });

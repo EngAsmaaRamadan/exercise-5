@@ -82,6 +82,10 @@ function showStudent(student){
 }
 
 function addStudent(){
+	registerInputs.forEach(function(input){
+		input?.blur();
+		checkInput(input);
+	});
 	if(checkInvalidaityOrEmpty()){
 		return;
 	}
