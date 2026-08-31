@@ -32,10 +32,11 @@ function decisionOnCorrect(input){
 
 function checkInput(input){
 	isInvalid = !regexInputs[input.name].test(input.value);
-	input.value = removeSpacesIfFound(input.value);
+	input.value = input.value.trim();
 	isEmpty = input.value === '';
 	errorEle = document.querySelector(`p.alert[data-error-name="${input.name}"]`);
 	errorMsg = '';
+	errorEle.classList.remove('d-none');
 	if(isEmpty){
 		errorMsg = "This field is required";
 	}else if(isInvalid){
@@ -55,13 +56,13 @@ function checkInput(input){
 	}
 }
 
-function removeSpacesIfFound(value){
-	let spaceRegex = /[\s]/;
-	if(spaceRegex.test(value)){
-		value.trim();
-	}
-	return value;
-}
+// function removeSpacesIfFound(value){
+// 	let spaceRegex = /[\s]/;
+// 	if(spaceRegex.test(value)){
+// 		value.trim();
+// 	}
+// 	return value;
+// }
 
 function showStudent(student){
 	tableBody.innerHTML += `
@@ -84,7 +85,9 @@ function showStudent(student){
 }
 
 function addStudent(){
-	checkInvalidaityOrEmpty();
+	if(checkInvalidaityOrEmpty()){
+		return;
+	}
 	student = getStudent(++id);
 	students.push(student);
 	updateLocalStorage();
@@ -93,16 +96,22 @@ function addStudent(){
 }
 
 function checkInvalidaityOrEmpty(){
+	registerinputs.forEach(function (inputCheck){
+			checkInput(inputCheck);
+		});
 	let inputFocus = registerForm.querySelector("input:focus");
 	//to blur on last input focus when i press enter while i am focus on this input
 	inputFocus?.blur();
-
+	
 	let invalidInput = registerForm.querySelector("input.is-invalid"),//select first input that invalid
 		invalidInputDataSet = registerForm.querySelector('input[data-valid="false"]');
 
+		
+
+		
 	//if invalid input design or empty input return
 	if(invalidInput != null || invalidInputDataSet != null){
-		return;
+		return true;
 	}
 }
 

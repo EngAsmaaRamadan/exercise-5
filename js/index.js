@@ -3,11 +3,14 @@ let registerForm = document.querySelector("#Register form"),
 	students = [],
 	student = {},
 	inputName,
+	errorEle,
+	isEmpty,
+	isInvalid,
 	inputValue,
-	id = 0,	
+	id = 0,
 	regexInputs = {
-		firstName : /^[\s]*[A-Za-z]+[\s]*$/,
-		lastName : /^[\s]*[A-Za-z]+[\s]*$/,
+		firstName : /^[\s]*[A-Za-z]{3,}[\s]*$/,
+		lastName : /^[\s]*[A-Za-z]{3,}[\s]*$/,
 		email : /^[\s]*[A-Za-z_][A-Za-z0-9_\.]*@(gmail|yahoo)\.(com|org)[\s]*$/,
 		age : /^[\s]*[0-9]{2}[\s]*$/,
 		phone : /^[\s]*(02)?01(0|1|2|5)[0-9]{8}[\s]*$/,	
@@ -39,7 +42,6 @@ if(registerForm.getAttribute('data-type') == 'add'){
 
 registerForm.addEventListener('submit',function(e){
 	e.preventDefault();
-	resetButton.classList.add('d-none');
 	let formType = registerForm.getAttribute('data-type');
 	if(formType == 'add'){
 		addStudent();
@@ -48,7 +50,7 @@ registerForm.addEventListener('submit',function(e){
 		let formButton = registerForm.querySelector('button');
 		convertButton(formButton,"Add");
 	}
-
+	resetButton.classList.add('d-none');
 	resetForm();//to prevent error alert This field is required when i press enter on done edit data and press out of input
 });
 
