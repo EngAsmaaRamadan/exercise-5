@@ -9,6 +9,7 @@ function getStudent(id){
 function checkUnique(input){
 	for(let student of students){
 		if(student[input.name] == input.value){
+			console.log('okay');
 			return `this ${input.name} is used before`;//using return with forEach like continue in for loop, that ignore this iteration and start from the next element(iteration)
 		}	
 	}
@@ -31,6 +32,7 @@ function decisionOnCorrect(input){
 
 function checkInput(input){
 	isInvalid = !regexInputs[input.name].test(input.value);
+	input.value = removeSpacesIfFound(input.value);
 	isEmpty = input.value === '';
 	errorEle = document.querySelector(`p.alert[data-error-name="${input.name}"]`);
 	errorMsg = '';
@@ -51,6 +53,14 @@ function checkInput(input){
 			decisionOnCorrect(input);
 		}
 	}
+}
+
+function removeSpacesIfFound(value){
+	let spaceRegex = /[\s]/;
+	if(spaceRegex.test(value)){
+		value.trim();
+	}
+	return value;
 }
 
 function showStudent(student){
@@ -87,7 +97,7 @@ function checkInvalidaityOrEmpty(){
 	//to blur on last input focus when i press enter while i am focus on this input
 	inputFocus?.blur();
 
-	let invalidInput = registerForm.querySelector("input.invalid"),//select first input that invalid
+	let invalidInput = registerForm.querySelector("input.is-invalid"),//select first input that invalid
 		invalidInputDataSet = registerForm.querySelector('input[data-valid="false"]');
 
 	//if invalid input design or empty input return
