@@ -73,7 +73,7 @@ function showStudent(student){
 			<td>
 				<div class="buttons">
 					<button class="btn btn-info text-light me-2 edit" onclick="insertStudent(${student.id},this)" data-type="edit" >Edit</button>
-					<button class="btn btn-danger delete" onclick="deleteStudent(${student.id},this);">Delete</button>
+					<button class="btn btn-danger delete" onclick="confirmDelete(${student.id},this);">Delete</button>
 				</div>
 			</td>
 		</tr>
@@ -125,15 +125,54 @@ function checkInvalidaityOrEmpty(){
 }
 
 function deleteStudent(id,that){
-	// if(!confirm("Are you sure?")){
-	// 	return;
-	// }//will do it as a popup in last, problem, make it not comment if you dont have time to do the popup
-	let studentIndex = findStudentIndex(id);
-	students.splice(studentIndex,1);
-	updateLocalStorage();
-	trEle = that.closest('tr');
-	trEle.remove();
-	isNoData(students);
+	
+		console.log(that);
+		let studentIndex = findStudentIndex(id);
+		students.splice(studentIndex,1);
+		updateLocalStorage();
+		trEle = that.closest('tr');
+		console.log('that,trEle are');
+		console.log(that,trEle);
+		trEle.remove();
+		isNoData(students);
+	
+}
+
+function confirmDelete(id,that){
+	popupEffect('delete','Are you sure?','yes, delete','btn-danger');
+	openPopup();
+	btnIgnore.addEventListener('click',function(){closePopup();return;});
+	btnExecutePopup.addEventListener('click',function(){
+		console.log(that);
+		deleteStudent(id,that);
+		closePopup();return;
+	});
+}
+
+function openPopup(){
+	popup.classList.add('active');
+	setTimeout(function(){
+		popup.classList.add('show');
+		popupBox.classList.add('show');
+	},1);
+}
+
+function closePopup(){
+	popup.classList.remove('show');
+	popupBox.classList.remove('show');
+	setTimeout(function(){
+		popup.classList.remove('active');
+	},500);
+}
+
+function popupEffect(evectName,question,btnContent,color){
+	let eventPopup = popup.querySelector('.event'),
+		questionPopup = popup.querySelector('.questionConfirm'),
+		btnPopup = popup.querySelector('button.do-it');
+	eventPopup.textContent = evectName;
+	questionPopup.textContent = question;
+	btnPopup.textContent = btnContent;
+	btnPopup.classList.add(color);
 }
 
 function findStudentIndex(id){
@@ -200,35 +239,42 @@ function disabledButtons(buttons,num){
 }
 
 function editStudent(){
-	let studentId = registerForm.getAttribute('data-edit-student-id'),
-		studentIndex = findStudentIndex(studentId),
-		student = getStudent(studentId);
-	students[studentIndex] = student;
-	updateLocalStorage();
-	let trEle = tableBody.querySelector(`tr[data-student-edit-id="${studentId}"]`);
-	trEle.innerHTML = `
-		<th>${student.id}</th>
-		<td>${student.firstName}</td>
-		<td>${student.lastName}</td>
-		<td>${student.email}</td>
-		<td>${student.age}</td>
-		<td>${student.phone}</td>
-		<td>
-			<div class="buttons">
-				<button class="btn btn-info text-light me-2" onclick="insertStudent(${student.id},this)" data-type="edit" >Edit</button>
-				<button class="btn btn-danger" onclick="deleteStudent(${student.id},this);">Delete</button>
-			</div>
-		</td>
-	`;
-	trEle.classList.add('table-primary');
-	setTimeout(function(){
-		trEle.classList.remove('table-primary');
-	},1000);
-	checkInvalidaityOrEmpty();
-	resetIcon.classList.add('d-none');
-	let otherButtons = document.querySelectorAll('#Data button');
-	disabledButtons(otherButtons,2);
-	resetForm();
+	popupEffect('edit','do you want to save changes?','yes, save','btn-info');
+	openPopup();
+	btnIgnore.addEventListener('click',function(){closePopup();return;});
+	btnExecutePopup.addEventListener('click',function(){
+		// console.log('ok');
+		let studentId = registerForm.getAttribute('data-edit-student-id'),
+			studentIndex = findStudentIndex(studentId),
+			student = getStudent(studentId);
+		students[studentIndex] = student;
+		updateLocalStorage();
+		let trEle = tableBody.querySelector(`tr[data-student-edit-id="${studentId}"]`);
+		trEle.innerHTML = `
+			<th>${student.id}</th>
+			<td>${student.firstName}</td>
+			<td>${student.lastName}</td>
+			<td>${student.email}</td>
+			<td>${student.age}</td>
+			<td>${student.phone}</td>
+			<td>
+				<div class="buttons">
+					<button class="btn btn-info text-light me-2" onclick="insertStudent(${student.id},this)" data-type="edit" >Edit</button>
+					<button class="btn btn-danger" onclick="confirmDelete(${student.id},this);">Delete</button>
+				</div>
+			</td>
+		`;
+		trEle.classList.add('table-success');
+		setTimeout(function(){
+			trEle.classList.remove('table-success');
+		},1000);
+		checkInvalidaityOrEmpty();
+		resetIcon.classList.add('d-none');
+		let otherButtons = document.querySelectorAll('#Data button');
+		disabledButtons(otherButtons,2);
+		resetForm();
+		closePopup();
+	});
 }
 
 function convertButton(button,word){

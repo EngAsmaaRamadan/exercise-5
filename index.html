@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="css/index.css">
 	<link rel="stylesheet" href="css/index.responsive.css">
 </head>
-<body>
+<body class="position-relative">
 	<!-- don't forget the  attribute after js done-->
 <section id="Register" class="py-5">
 	<div class="container">
@@ -65,7 +65,7 @@
 			<input type="text" class="form-control" placeholder="Search..." id="Search" name="search">
 		</div>
 </section>
-<section id="Data" class="w-75 m-auto mb-5">
+<section id="Data" class="w-75 m-auto pb-5">
 	<div class="table-responsive">
 		<table class="table table-striped">
   <thead class="table-dark">
@@ -88,15 +88,16 @@
 	</div>
 </section>
 
-<!-- <div class="popup">
-	<div class="popupBox">
-		<div>delete <i class="fa-solid fa-xmark"></i></div>
-		<div>Are you sure?</div>
-		<div class="buttons">
-			<button class="">discard</button>
-			<button class="">yes, delete</button></div>
+<div class="popup">
+	<div class="popup-box bg-dark text-light rounded-3">
+		<div class="event d-flex align-items-center p-3"><span></span><i class="text-secondary fa-solid fa-xmark"></i></div>
+		<hr class="m-0">
+		<div class="questionConfirm p-3"></div>
+		<hr class="m-0">
+		<div class="buttons p-3"><button class="btn btn-secondary m-0 me-2 ignore">discard</button>
+			<button class="btn btn-info m-0 me-2 do-it"></button></div>
 	</div>
-</div> -->
+</div>
 
 <script src="js/functions.js"></script>
 <script src="js/index.js"></script>

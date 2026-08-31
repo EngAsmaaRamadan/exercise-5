@@ -19,6 +19,11 @@ let registerForm = document.querySelector("#Register form"),
 	resetIcon = registerForm.querySelector('.reset-icon'),
 	resetButton = registerForm.querySelector('.clear'),
 	tableBody = document.querySelector("table tbody"),
+	popup = document.querySelector('.popup'),
+	popupBox = popup.querySelector('.popup-box'),
+	btnIgnore = popup.querySelector('.ignore'),
+	btnExecutePopup = popup.querySelector('.do-it'),
+	popupCloseIcon = popup.querySelector('.close'),
 	searchInput = document.querySelector('input#Search');
 
 if(localStorage.getItem("students") === null){

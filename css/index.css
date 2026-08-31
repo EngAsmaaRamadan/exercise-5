@@ -45,3 +45,48 @@ i{
 #Data table tr td[colspan="7"]{
 	color:#664d03;
 }
+
+.popup{
+	position: fixed;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	transition-duration: 0.5s;
+	display: flex;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	background-color: rgba(0,0,0,0.5);
+	width: 100%;
+	height: 100%;
+}
+
+.popup .popup-box{
+	width: 450px;
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    transition-duration: 0.5s;
+}
+
+.popup .popup-box.show{
+	transform: translate(-50%, -50%);
+}
+
+.popup .popup-box .event{
+	justify-content: space-between;
+}
+
+.popup .popup-box .buttons{
+	display: flex;
+	justify-content: right;
+}
+
+.active{
+	display: flex;
+}
+
+.show{
+	opacity: 1;
+}
