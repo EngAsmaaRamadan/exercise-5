@@ -66,7 +66,9 @@ searchInput.addEventListener('keyup',function(){
 	search(this.value);
 });
 
-resetButton.addEventListener('click',function(){
+resetButton.addEventListener('click',function(e){
+	console.log('hi');
+	e.preventDefault(e);
 		resetForm();
 		resetButton.classList.add('d-none');
 });

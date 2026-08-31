@@ -24,19 +24,19 @@ function decisionOnCorrect(input){
 function checkUnique(input){
 	for(let student of students){
 		if(student[input.name] == input.value){
-			console.log('okay');
+			
 			return `this ${input.name} is used before`;//using return with forEach like continue in for loop, that ignore this iteration and start from the next element(iteration)
 		}	
 	}
 }
 
 function checkInput(input){
-	console.log(input.value);
+	
 	isInvalid = !regexInputs[input.name].test(input.value);
-	console.log(isInvalid);
-	console.log(input.value);
+	
+	
 	input.value = input.value.trim();
-	console.log(input.value);
+	
 	isEmpty = (input.value === '');
 	errorEle = document.querySelector(`p.alert[data-error-name="${input.name}"]`);
 	errorMsg = '';
@@ -53,7 +53,7 @@ function checkInput(input){
 	}else{
 		//Correct input
 		if( ( input.name == 'email' || input.name == 'phone' ) && checkUnique(input) !== undefined){
-			console.log('ok!');
+			
 			decisionOnInCorrect(input,checkUnique(input));
 		}else{
 			decisionOnCorrect(input);
@@ -89,7 +89,7 @@ function addStudent(){
 	if(checkInvalidaityOrEmpty()){
 		return;
 	}
-	console.log('add work');
+	
 	student = getStudent(++id);
 	students.push(student);
 	updateLocalStorage();
@@ -99,13 +99,13 @@ function addStudent(){
 
 function checkInvalidaityOrEmpty(){
 	inputFocus = registerForm.querySelector("input:focus");
-	console.log(inputFocus);
+	
 	//to blur on last input focus when i press enter while i am focus on this input
 	inputFocus?.blur();
 	
 	let invalidInput = registerForm.querySelector("input.is-invalid"),//select first input that invalid
 		invalidInputDataSet = registerForm.querySelector('input[data-valid="false"]');
-console.log(invalidInputDataSet,invalidInput);
+
 	//if invalid input design or empty input return
 	if(invalidInput != null || invalidInputDataSet != null){
 		return true;
