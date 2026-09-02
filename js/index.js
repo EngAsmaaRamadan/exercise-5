@@ -9,6 +9,7 @@ let registerForm = document.querySelector("#Register form"),
 	trEle,
 	inputValue,
 	inputFocus,
+	formButton,
 	id = 0,
 	regexInputs = {
 		firstName : /^[\s]*[A-Za-z]{3,}[\s]*$/,
@@ -66,12 +67,10 @@ registerForm.addEventListener('submit',function(e){
 });
 
 searchInput.addEventListener('keyup',function(){
-	console.log(this.value);
 	search(this.value);
 });
 
 resetButton.addEventListener('click',function(e){
-	console.log('hi');
 	e.preventDefault(e);
 		resetForm();
 		resetButton.classList.add('d-none');

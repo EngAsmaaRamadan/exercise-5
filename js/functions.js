@@ -86,7 +86,7 @@ function showStudent(student){
 function checkEditOrUndo(btn){
 
 	//btn.addEventListener('click',function(e){
-		console.log('ok');
+
 		let BtnType = btn.getAttribute('data-type');
 		return BtnType;
 			
@@ -126,13 +126,10 @@ function checkInvalidaityOrEmpty(){
 
 function deleteStudent(id,that){
 	
-	console.log(that);
 	let studentIndex = findStudentIndex(id);
 	students.splice(studentIndex,1);
 	updateLocalStorage();
 	trEle = that.closest('tr');
-	console.log('that,trEle are');
-	console.log(that,trEle);
 	trEle.remove();
 	isNoData(students);
 	closePopup();
@@ -150,7 +147,7 @@ function confirmDelete(id,that){
 		return;
 	};
 	btnExecutePopup.onclick = function(){
-		console.log(that);
+
 		deleteStudent(id,that);
 	};
 }
@@ -187,8 +184,8 @@ function findStudentIndex(id){
 
 function insertStudent(id,that){
 	resetForm();
-	let editStudent = students.find((student) => (student.id == id) ),
-		formButton = registerForm.querySelector('button.add');
+	let editStudent = students.find((student) => (student.id == id) );
+	formButton = registerForm.querySelector('button.add');
 
 	registerInputs.forEach(function(input){
 		input.value = editStudent[input.name];
@@ -215,14 +212,14 @@ function insertStudent(id,that){
 			resetForm();
 			resetIcon.classList.add('d-none');
 			disabledButtons(otherButtons,2);
-			removeEffectUndo(otherButtons,that,formButton);
+			removeEffectUndo(otherButtons,that);
 		});
 	}else if(BtnType == 'reset'){
-		removeEffectUndo(otherButtons,that,formButton);
+		removeEffectUndo(otherButtons,that);
 	}
 }
 
-function removeEffectUndo(otherButtons,that,formButton){
+function removeEffectUndo(otherButtons,that){
 	that.classList.remove('btn-primary');
 	that.classList.add('btn-info');
 	that.textContent = 'Edit';
@@ -252,6 +249,7 @@ function disabledButtons(buttons,num){
 function editStudent(){
 	popupEffect('edit','do you want to save changes?','yes, save','btn-info');
 	openPopup();
+	convertButton(formButton,'Edit');
 	let btnExecutePopup = popup.querySelector('.do-it'),
 		btnIgnore = popup.querySelector('.ignore');
 	btnIgnore.onclick = function(){
@@ -283,7 +281,9 @@ function editStudent(){
 		setTimeout(function(){
 			trEle.classList.remove('table-success');
 		},1000);
-		checkInvalidaityOrEmpty();
+		if(checkInvalidaityOrEmpty()){
+			return;
+		}
 		resetIcon.classList.add('d-none');
 		let otherButtons = document.querySelectorAll('#Data button');
 		disabledButtons(otherButtons,2);
