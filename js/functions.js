@@ -126,27 +126,33 @@ function checkInvalidaityOrEmpty(){
 
 function deleteStudent(id,that){
 	
-		console.log(that);
-		let studentIndex = findStudentIndex(id);
-		students.splice(studentIndex,1);
-		updateLocalStorage();
-		trEle = that.closest('tr');
-		console.log('that,trEle are');
-		console.log(that,trEle);
-		trEle.remove();
-		isNoData(students);
-	
+	console.log(that);
+	let studentIndex = findStudentIndex(id);
+	students.splice(studentIndex,1);
+	updateLocalStorage();
+	trEle = that.closest('tr');
+	console.log('that,trEle are');
+	console.log(that,trEle);
+	trEle.remove();
+	isNoData(students);
+	closePopup();
+	return;
 }
 
 function confirmDelete(id,that){
 	popupEffect('delete','Are you sure?','yes, delete','btn-danger');
 	openPopup();
-	btnIgnore.addEventListener('click',function(){closePopup();return;});
-	btnExecutePopup.addEventListener('click',function(){
+	let btnExecutePopup = popup.querySelector('.do-it'),
+		btnIgnore = popup.querySelector('.ignore');
+	//must redeclar this buttons because if didn't in second time click on delete button we have more than one of listeners on previous buttons in popup so every button delete random row, so here the best is used onclick property because it execute the current button that we click on now
+	btnIgnore.onclick = function(){
+		closePopup();
+		return;
+	};
+	btnExecutePopup.onclick = function(){
 		console.log(that);
 		deleteStudent(id,that);
-		closePopup();return;
-	});
+	};
 }
 
 function openPopup(){
@@ -165,11 +171,11 @@ function closePopup(){
 	},500);
 }
 
-function popupEffect(evectName,question,btnContent,color){
+function popupEffect(eventName,question,btnContent,color){
 	let eventPopup = popup.querySelector('.event'),
 		questionPopup = popup.querySelector('.questionConfirm'),
 		btnPopup = popup.querySelector('button.do-it');
-	eventPopup.textContent = evectName;
+	eventPopup.textContent = eventName;
 	questionPopup.textContent = question;
 	btnPopup.textContent = btnContent;
 	btnPopup.classList.add(color);
@@ -209,19 +215,24 @@ function insertStudent(id,that){
 			resetForm();
 			resetIcon.classList.add('d-none');
 			disabledButtons(otherButtons,2);
+			removeEffectUndo(otherButtons,that,formButton);
 		});
 	}else if(BtnType == 'reset'){
-		that.classList.remove('btn-primary');
-		that.classList.add('btn-info');
-		that.textContent = 'Edit';
-		that.dataset.type = 'edit';
-		registerForm.dataset.type = 'add';
-		resetForm();
-		disabledButtons(otherButtons,2);
-		registerForm.dataset.type = 'add';
-		convertButton(formButton,'Add');
-		resetIcon.classList.add('d-none');
+		removeEffectUndo(otherButtons,that,formButton);
 	}
+}
+
+function removeEffectUndo(otherButtons,that,formButton){
+	that.classList.remove('btn-primary');
+	that.classList.add('btn-info');
+	that.textContent = 'Edit';
+	that.dataset.type = 'edit';
+	registerForm.dataset.type = 'add';
+	resetForm();
+	disabledButtons(otherButtons,2);
+	registerForm.dataset.type = 'add';
+	convertButton(formButton,'Add');
+	resetIcon.classList.add('d-none');
 }
 
 function disabledButtons(buttons,num){
@@ -241,9 +252,13 @@ function disabledButtons(buttons,num){
 function editStudent(){
 	popupEffect('edit','do you want to save changes?','yes, save','btn-info');
 	openPopup();
-	btnIgnore.addEventListener('click',function(){closePopup();return;});
-	btnExecutePopup.addEventListener('click',function(){
-		// console.log('ok');
+	let btnExecutePopup = popup.querySelector('.do-it'),
+		btnIgnore = popup.querySelector('.ignore');
+	btnIgnore.onclick = function(){
+		closePopup();
+		return;
+	};
+	btnExecutePopup.onclick = function(){
 		let studentId = registerForm.getAttribute('data-edit-student-id'),
 			studentIndex = findStudentIndex(studentId),
 			student = getStudent(studentId);
@@ -274,7 +289,7 @@ function editStudent(){
 		disabledButtons(otherButtons,2);
 		resetForm();
 		closePopup();
-	});
+	};
 }
 
 function convertButton(button,word){
