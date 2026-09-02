@@ -2,12 +2,10 @@ let registerForm = document.querySelector("#Register form"),
 	registerInputs = registerForm.querySelectorAll("input"),
 	students = [],
 	student = {},
-	inputName,
 	errorEle,
 	isEmpty,
 	isInvalid,
 	trEle,
-	inputValue,
 	inputFocus,
 	formButton,
 	id = 0,
@@ -60,8 +58,6 @@ registerForm.addEventListener('submit',function(e){
 		addStudent();
 	}else if(formType == 'edit'){
 		editStudent();
-		let formButton = registerForm.querySelector('button');
-		convertButton(formButton,"Add");
 	}
 	resetButton.classList.add('d-none');
 });
@@ -76,3 +72,8 @@ resetButton.addEventListener('click',function(e){
 		resetButton.classList.add('d-none');
 });
 
+popupCloseIcon.addEventListener('click',closePopup);
+popup.addEventListener('click',closePopup);
+popupBox.addEventListener('click',function(e){
+	e.stopPropagation();
+})

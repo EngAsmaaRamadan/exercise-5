@@ -21,22 +21,25 @@ function decisionOnCorrect(input){
 	input.dataset.valid = true;
 }
 
-function checkUnique(input){
-	for(let student of students){
+function checkUnique(input,studentId){
+	let studentFilter = students;// studentId = 0 (like in addStudent fn)
+	
+	if(studentId > 0){
+		studentFilter = students.filter(function(student){
+			return student.id != studentId;
+		});
+	}
+
+	for(let student of studentFilter){
 		if(student[input.name] == input.value){
-			
 			return `this ${input.name} is used before`;//using return with forEach like continue in for loop, that ignore this iteration and start from the next element(iteration)
 		}	
 	}
 }
 
-function checkInput(input){
-	
+function checkInput(input,studentId = 0){
 	isInvalid = !regexInputs[input.name].test(input.value);
-	
-	
 	input.value = input.value.trim();
-	
 	isEmpty = (input.value === '');
 	errorEle = document.querySelector(`p.alert[data-error-name="${input.name}"]`);
 	errorMsg = '';
@@ -52,9 +55,9 @@ function checkInput(input){
 		decisionOnInCorrect(input,errorMsg);
 	}else{
 		//Correct input
-		if( ( input.name == 'email' || input.name == 'phone' ) && checkUnique(input) !== undefined){
+		if( ( input.name == 'email' || input.name == 'phone' ) && checkUnique(input,studentId) !== undefined){
 			
-			decisionOnInCorrect(input,checkUnique(input));
+			decisionOnInCorrect(input,checkUnique(input,studentId));
 		}else{
 			decisionOnCorrect(input);
 		}
@@ -94,10 +97,6 @@ function checkEditOrUndo(btn){
 }
 
 function addStudent(){
-	registerInputs.forEach(function(input){
-		input?.blur();
-		checkInput(input);
-	});
 	if(checkInvalidaityOrEmpty()){
 		return;
 	}
@@ -109,7 +108,12 @@ function addStudent(){
 	resetForm();
 }
 
-function checkInvalidaityOrEmpty(){
+function checkInvalidaityOrEmpty(studentId = 0){
+	registerInputs.forEach(function(input){
+		input?.blur();
+		checkInput(input,studentId);
+	});
+
 	inputFocus = registerForm.querySelector("input:focus");
 	
 	//to blur on last input focus when i press enter while i am focus on this input
@@ -141,7 +145,7 @@ function deleteStudent(StudentId,that){
 }
 
 function confirmDelete(StudentId,that){
-	popupEffect('delete','Are you sure?','yes, delete','btn-danger','btn-info');
+	popupEffect('Delete','Are you sure?','yes, delete','btn-danger','btn-info');
 	openPopup();
 	let btnExecutePopup = popup.querySelector('.do-it'),
 		btnIgnore = popup.querySelector('.ignore');
@@ -172,7 +176,7 @@ function closePopup(){
 }
 
 function popupEffect(eventName,question,btnContent,color,prevColor){
-	let eventPopup = popup.querySelector('.event'),
+	let eventPopup = popup.querySelector('.event span'),
 		questionPopup = popup.querySelector('.questionConfirm'),
 		btnPopup = popup.querySelector('button.do-it');
 	eventPopup.textContent = eventName;
@@ -251,21 +255,26 @@ function disabledButtons(buttons,num){
 }
 
 function editStudent(){
-	popupEffect('edit','do you want to save changes?','yes, save','btn-info','btn-danger');
+	popupEffect('Edit','do you want to save changes?','yes, save','btn-info','btn-danger');
+	let studentId = registerForm.getAttribute('data-edit-student-id');
+	if(checkInvalidaityOrEmpty(studentId)){
+		return;
+	}
 	openPopup();
-	convertButton(formButton,'Edit');
 	let btnExecutePopup = popup.querySelector('.do-it'),
 		btnIgnore = popup.querySelector('.ignore');
 	btnIgnore.onclick = function(){
 		closePopup();
 		return;
 	};
+	
 	btnExecutePopup.onclick = function(){
-		let studentId = registerForm.getAttribute('data-edit-student-id'),
-			studentIndex = findStudentIndex(studentId),
+		let	studentIndex = findStudentIndex(studentId),
 			student = getStudent(studentId);
+		if(checkInvalidaityOrEmpty(studentId)){
+			return;
+		}
 		students[studentIndex] = student;
-		updateLocalStorage();
 		let trEle = tableBody.querySelector(`tr[data-student-edit-id="${studentId}"]`);
 		trEle.innerHTML = `
 			<th>${student.id}</th>
@@ -285,14 +294,14 @@ function editStudent(){
 		setTimeout(function(){
 			trEle.classList.remove('table-success');
 		},1000);
-		if(checkInvalidaityOrEmpty()){
-			return;
-		}
 		resetIcon.classList.add('d-none');
 		let otherButtons = document.querySelectorAll('#Data button');
 		disabledButtons(otherButtons,2);
 		resetForm();
 		closePopup();
+		let formButton = registerForm.querySelector('button');
+		convertButton(formButton,"Add");
+		updateLocalStorage();
 	};
 }
 
