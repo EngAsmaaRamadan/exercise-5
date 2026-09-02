@@ -124,9 +124,15 @@ function checkInvalidaityOrEmpty(){
 	}
 }
 
-function deleteStudent(id,that){
+function deleteStudent(StudentId,that){
 	
-	let studentIndex = findStudentIndex(id);
+	let studentIndex = findStudentIndex(StudentId);
+	if(students[students.length - 1].id > id){
+		id =  students[students.length - 1].id;	
+	}else{
+		// id = id;
+	}
+	
 	students.splice(studentIndex,1);
 	updateLocalStorage();
 	trEle = that.closest('tr');
@@ -136,8 +142,8 @@ function deleteStudent(id,that){
 	return;
 }
 
-function confirmDelete(id,that){
-	popupEffect('delete','Are you sure?','yes, delete','btn-danger');
+function confirmDelete(StudentId,that){
+	popupEffect('delete','Are you sure?','yes, delete','btn-danger','btn-info');
 	openPopup();
 	let btnExecutePopup = popup.querySelector('.do-it'),
 		btnIgnore = popup.querySelector('.ignore');
@@ -147,8 +153,7 @@ function confirmDelete(id,that){
 		return;
 	};
 	btnExecutePopup.onclick = function(){
-
-		deleteStudent(id,that);
+		deleteStudent(StudentId,that);
 	};
 }
 
@@ -168,13 +173,14 @@ function closePopup(){
 	},500);
 }
 
-function popupEffect(eventName,question,btnContent,color){
+function popupEffect(eventName,question,btnContent,color,prevColor){
 	let eventPopup = popup.querySelector('.event'),
 		questionPopup = popup.querySelector('.questionConfirm'),
 		btnPopup = popup.querySelector('button.do-it');
 	eventPopup.textContent = eventName;
 	questionPopup.textContent = question;
 	btnPopup.textContent = btnContent;
+	btnPopup.classList.remove(prevColor);
 	btnPopup.classList.add(color);
 }
 
@@ -247,7 +253,7 @@ function disabledButtons(buttons,num){
 }
 
 function editStudent(){
-	popupEffect('edit','do you want to save changes?','yes, save','btn-info');
+	popupEffect('edit','do you want to save changes?','yes, save','btn-info','btn-danger');
 	openPopup();
 	convertButton(formButton,'Edit');
 	let btnExecutePopup = popup.querySelector('.do-it'),

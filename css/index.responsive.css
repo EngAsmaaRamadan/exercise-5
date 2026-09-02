@@ -1,4 +1,33 @@
-@media (max-width: 1300px) {}
+@media (max-width: 1300px) {
+	#Register .container .head img {
+	    width: 30%;
+	}
+
+	#Register .container form {
+    	width: 280px;
+	}
+
+	#Register .container form .clear{
+		top: 4%;
+    	right: 0%;
+	}
+
+	#Register .container form label{
+		width: 17%;
+	}
+
+	#Search .search-input {
+	    width: 250px;
+	}
+
+	#Data{
+		width: 95%;
+	}
+
+	.popup .popup-box {
+	    width: 280px;
+	}
+}
 
 @media (min-width: 371px) and (max-width: 1300px) {}
 

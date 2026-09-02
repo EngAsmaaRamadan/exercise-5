@@ -30,7 +30,7 @@ if(localStorage.getItem("students") === null){
 	updateLocalStorage();
 }else{
 	students = JSON.parse(localStorage.getItem('students'));
-	id = students[students.length - 1]?.id ?? 0;
+	id = students[students.length - 1]?.id ?? id;
 	showStudents(students);
 	isNoData(students);
 }

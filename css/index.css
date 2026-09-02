@@ -37,6 +37,10 @@ i{
 	width: 300px;
 }
 
+#Data{
+	width: 75%;
+}
+
 #Data table.table{
 	width: max-content;
 	min-width: 100%;
