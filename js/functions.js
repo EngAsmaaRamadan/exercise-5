@@ -125,14 +125,12 @@ function checkInvalidaityOrEmpty(){
 }
 
 function deleteStudent(StudentId,that){
-	
-	let studentIndex = findStudentIndex(StudentId);
+	//update the largest id before delete from array students
 	if(students[students.length - 1].id > id){
 		id =  students[students.length - 1].id;	
-	}else{
-		// id = id;
 	}
-	
+
+	let studentIndex = findStudentIndex(StudentId);
 	students.splice(studentIndex,1);
 	updateLocalStorage();
 	trEle = that.closest('tr');
