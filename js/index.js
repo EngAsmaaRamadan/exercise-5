@@ -26,6 +26,7 @@ let registerForm = document.querySelector("#Register form"),
 
 if(localStorage.getItem("students") === null){
 	updateLocalStorage();
+	isNoData(students);
 }else{
 	students = JSON.parse(localStorage.getItem('students'));
 	id = students[students.length - 1]?.id ?? id;
