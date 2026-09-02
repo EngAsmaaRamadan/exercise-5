@@ -69,6 +69,7 @@ searchInput.addEventListener('keyup',function(){
 resetButton.addEventListener('click',function(e){
 	e.preventDefault(e);
 		resetForm();
+		registerForm.dataset.type = 'edit';//because resetForm(); make type 'add' so without it when click on resetButton and put data then enter it added as new row not edit existing row
 		resetButton.classList.add('d-none');
 });
 
