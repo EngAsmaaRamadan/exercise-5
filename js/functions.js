@@ -254,7 +254,7 @@ function disabledButtons(buttons,num){
 		});
 	}	
 }
-
+ 
 function editStudent(){
 	popupEffect('Edit','do you want to save changes?','yes, save','btn-info','btn-danger');
 	let studentId = registerForm.getAttribute('data-edit-student-id');
