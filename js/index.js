@@ -7,6 +7,7 @@ let registerForm = document.querySelector("#Register form"),
 	isInvalid,
 	trEle,
 	inputFocus,
+	otherButtons,
 	formButton,
 	id = 0,
 	regexInputs = {
