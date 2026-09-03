@@ -131,7 +131,8 @@ function checkInvalidaityOrEmpty(studentId = 0){
 function deleteStudent(StudentId,that){
 	//update the largest id before delete from array students
 	if(students[students.length - 1].id > id){
-		id =  students[students.length - 1].id;	
+		id =  students[students.length - 1].id;
+		localStorage.setItem('largestId',id.toString());
 	}
 
 	let studentIndex = findStudentIndex(StudentId);
@@ -299,7 +300,7 @@ function editStudent(){
 		disabledButtons(otherButtons,2);
 		resetForm();
 		closePopup();
-		let formButton = registerForm.querySelector('button');
+		formButton = registerForm.querySelector('button');
 		convertButton(formButton,"Add");
 		updateLocalStorage();
 	};

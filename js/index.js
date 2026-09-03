@@ -29,7 +29,7 @@ if(localStorage.getItem("students") === null){
 	isNoData(students);
 }else{
 	students = JSON.parse(localStorage.getItem('students'));
-	id = students[students.length - 1]?.id ?? id;
+	id = students[students.length - 1]?.id ?? localStorage.getItem('largestId');
 	showStudents(students);
 	isNoData(students);
 }
@@ -57,8 +57,12 @@ registerForm.addEventListener('submit',function(e){
 	let formType = registerForm.getAttribute('data-type');
 	if(formType == 'add'){
 		addStudent();
-	}else if(formType == 'edit'){
+	}else if(formType == 'edit' && registerForm.querySelector('button').className.includes('edit')){
 		editStudent();
+	}else if(formType == 'edit' && registerForm.querySelector('button').className.includes('add') && registerForm.className.includes('from-resetButton')){//this condition is when i want to add but first click on clear then put data then click on Add button so it deal with it as edit because addEventListener on resetButton so we select this condition as a specific class then remove it and convert data-type of form from edit to add if the button is Add
+		registerForm.classList.remove('from-resetButton');
+		registerForm.setAttribute('data-type','add');
+		addStudent();
 	}
 	resetButton.classList.add('d-none');
 });
@@ -71,6 +75,7 @@ resetButton.addEventListener('click',function(e){
 	e.preventDefault(e);
 		resetForm();
 		registerForm.dataset.type = 'edit';//because resetForm(); make type 'add' so without it when click on resetButton and put data then enter it added as new row not edit existing row
+		registerForm.classList.add('from-resetButton');
 		resetButton.classList.add('d-none');
 });
 
