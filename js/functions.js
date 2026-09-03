@@ -192,6 +192,7 @@ function findStudentIndex(id){
 }
 
 function insertStudent(id,that){
+	searchInput.setAttribute('disabled','');
 	resetForm();
 	let editStudent = students.find((student) => (student.id == id) ),
 		formButton = registerForm.querySelector('button.basic');
@@ -334,6 +335,7 @@ function convertButton(button,word){
 		button.classList.add('btn-success');
 		button.classList.remove('edit');
 		button.classList.add('add');
+		searchInput.removeAttribute('disabled');
 	}
 	button.classList.add('text-light');
 }

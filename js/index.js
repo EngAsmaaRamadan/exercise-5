@@ -64,6 +64,8 @@ searchInput.addEventListener('keyup',function(){
 	search(this.value);
 });
 
+searchInput.removeAttribute('disabled');
+
 resetButton.addEventListener('click',function(e){
 	e.preventDefault(e);
 		resetForm();
