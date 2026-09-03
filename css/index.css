@@ -4,11 +4,26 @@
 
 #Register .container form{
 	width: 500px;
-	background: #ada996;
-    background: -webkit-linear-gradient(to right,#eaeaea,#dbdbdb,#f2f2f2,#ada996);
-    background: linear-gradient(to right, #eaeaea, #dbdbdb, #f2f2f2, #ada996);
+	background-color: #35455a;
+	border: 1px solid #fff;
     border-radius: 20px;
     color: var(--main-color);
+}
+
+#Register .container form .basic{
+	color: #fff;
+    letter-spacing: 1.5px;
+    border: 3px solid #fff;
+    transform: scale(1.0);
+    transition: 0.3s;
+}
+
+#Register .container form .basic:hover{
+	transform: scale(1.03);
+}
+
+#Register .container form .basic i{
+	color: #fff;
 }
 
 #Register .container form>i{
@@ -28,9 +43,16 @@
 	width: 9%;
 }
 
-i{
+#Register i,
+#Search i{
 	color: var(--main-color);
 	cursor: pointer;
+}
+
+i{
+	color:#243b55;
+	cursor: pointer;
+	transition: 0.3s;
 }
 
 #Search .search-input {
@@ -48,6 +70,31 @@ i{
 
 #Data table tr td[colspan="7"]{
 	color:#664d03;
+}
+
+.btn.button-edit,
+.btn.button-edit:hover{
+	background-color: #6a89ce;
+	color: #243b55;
+}
+.btn.button-edit,
+.btn.button-delete{
+	transform: scale(1.0);
+	border-color: transparent;
+	transition: 0.3s;
+}
+
+.btn.button-delete,
+.btn.button-delete:hover{
+	background-color: #df7c7c;
+	color: #243b55;
+}
+
+.btn.button-edit:hover,
+.btn.button-delete:hover,
+.btn:hover i{
+	color:#000;
+	transform: scale(1.04);
 }
 
 .popup{
@@ -69,6 +116,8 @@ i{
 .popup .popup-box{
 	width: 450px;
 	position: absolute;
+	background-color: #243b55;
+	border: 3px solid #929daa;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -100%);

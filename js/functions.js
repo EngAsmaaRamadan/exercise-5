@@ -75,8 +75,8 @@ function showStudent(student){
 			<td>${student.phone}</td>
 			<td>
 				<div class="buttons">
-					<button class="btn btn-info text-light me-2 edit" onclick="insertStudent(${student.id},this)" data-type="edit" >Edit</button>
-					<button class="btn btn-danger delete" onclick="confirmDelete(${student.id},this);">Delete</button>
+					<button class="btn button-edit me-2 edit" onclick="insertStudent(${student.id},this)" data-type="edit"><i class="fa-solid fa-user-pen"></i><span> </span>Edit</button>
+					<button class="btn button-delete" onclick="confirmDelete(${student.id},this);"><i class="fa-solid fa-user-minus"></i><span> </span>Delete</button>
 				</div>
 			</td>
 		</tr>
@@ -146,7 +146,7 @@ function deleteStudent(StudentId,that){
 }
 
 function confirmDelete(StudentId,that){
-	popupEffect('Delete','Are you sure?','yes, delete','btn-danger','btn-info');
+	popupEffect('Delete','Are you sure?','yes, delete','#df7c7c');
 	openPopup();
 	let btnExecutePopup = popup.querySelector('.do-it'),
 		btnIgnore = popup.querySelector('.ignore');
@@ -176,15 +176,14 @@ function closePopup(){
 	},500);
 }
 
-function popupEffect(eventName,question,btnContent,color,prevColor){
+function popupEffect(eventName,question,btnContent,color){
 	let eventPopup = popup.querySelector('.event span'),
 		questionPopup = popup.querySelector('.questionConfirm'),
 		btnPopup = popup.querySelector('button.do-it');
 	eventPopup.textContent = eventName;
 	questionPopup.textContent = question;
 	btnPopup.textContent = btnContent;
-	btnPopup.classList.remove(prevColor);
-	btnPopup.classList.add(color);
+	btnPopup.style.backgroundColor = color;
 }
 
 function findStudentIndex(id){
@@ -209,20 +208,20 @@ function insertStudent(id,that){
 	disabledButtons(otherButtons,1);
 
 	registerForm.dataset.type = 'edit';
-	convertButton(formButton,'Edit');
+	convertButton(formButton,'<i class="fa-solid fa-user-pen"></i><span> </span>Edit');
 
 	registerForm.setAttribute('data-edit-student-id', id);
 	that.removeAttribute('disabled');
 	let BtnType = that.getAttribute('data-type');
 	if(BtnType == 'edit'){
 		that.classList.add('btn-primary');
-		that.classList.remove('btn-info');
+		that.classList.remove('button-edit');
 		that.textContent = 'undo';
 		that.dataset.type = 'reset';
 		resetIcon.classList.remove('d-none');
 		resetIcon.addEventListener('click',function(){
 			registerForm.setAttribute('data-type','add');
-			convertButton(formButton,'Add');
+			convertButton(formButton,'<i class="fa-solid fa-user-plus"></i><span> </span>Add');
 			resetForm();
 			resetIcon.classList.add('d-none');
 			disabledButtons(otherButtons,2);
@@ -235,14 +234,14 @@ function insertStudent(id,that){
 
 function removeEffectUndo(otherButtons,that){
 	that.classList.remove('btn-primary');
-	that.classList.add('btn-info');
-	that.textContent = 'Edit';
+	that.classList.add('button-edit');
+	that.innerHTML = '<i class="fa-solid fa-user-pen"></i><span> </span>Edit';
 	that.dataset.type = 'edit';
 	registerForm.dataset.type = 'add';
 	resetForm();
 	disabledButtons(otherButtons,2);
 	registerForm.dataset.type = 'add';
-	convertButton(formButton,'Add');
+	convertButton(formButton,'<i class="fa-solid fa-user-plus"></i><span> </span>Add');
 	resetIcon.classList.add('d-none');
 }
 
@@ -261,7 +260,7 @@ function disabledButtons(buttons,num){
 }
  
 function editStudent(){
-	popupEffect('Edit','do you want to save changes?','yes, save','btn-info','btn-danger');
+	popupEffect('Edit','do you want to save changes?','yes, save','#6a89ce');
 	let studentId = registerForm.getAttribute('data-edit-student-id');
 	if(checkInvalidaityOrEmpty(studentId)){
 		return;
@@ -293,8 +292,8 @@ function editStudent(){
 				<td>${student.phone}</td>
 				<td>
 					<div class="buttons">
-						<button class="btn btn-info text-light me-2" onclick="insertStudent(${student.id},this)" data-type="edit" >Edit</button>
-						<button class="btn btn-danger" onclick="confirmDelete(${student.id},this);">Delete</button>
+						<button class="btn button-edit me-2" onclick="insertStudent(${student.id},this)" data-type="edit"><i class="fa-solid fa-user-pen"></i><span> </span>Edit</button>
+						<button class="btn button-delete" onclick="confirmDelete(${student.id},this);"><i class="fa-solid fa-user-minus"></i><span> </span>Delete</button>
 					</div>
 				</td>
 			`;
@@ -308,12 +307,10 @@ function editStudent(){
 			resetForm();
 			closePopup();
 			formButton = registerForm.querySelector('button.basic');
-			convertButton(formButton,"Add");
+			convertButton(formButton,'<i class="fa-solid fa-user-plus"></i><span> </span>Add');
 			updateLocalStorage();
 		}else{
 			closePopup();
-			// formButton = registerForm.querySelector('button.basic');
-			// convertButton(formButton,"Edit");
 			alert('data doesnt changed');
 		}
 	};
@@ -323,21 +320,19 @@ function checkIfChanged(newStudent,studentIndex){
 	return JSON.stringify(students[studentIndex]) !== JSON.stringify(newStudent);
 }
 
-function convertButton(button,word){
-	button.textContent = word;
-	if(word == 'Edit'){
-		button.classList.remove('btn-success');
+function convertButton(button,wordAndIcon){
+	button.innerHTML = wordAndIcon;
+	if(wordAndIcon.includes('Edit')){
 		button.classList.remove('add');
 		button.classList.add('edit');
-		button.classList.add('btn-info');
-	}else if(word == 'Add'){
-		button.classList.remove('btn-info');
-		button.classList.add('btn-success');
+		button.style.backgroundColor='#6a89ce';
+	}else if(wordAndIcon.includes('Add')){
+		button.style.backgroundColor='transparent';
 		button.classList.remove('edit');
 		button.classList.add('add');
 		searchInput.removeAttribute('disabled');
 	}
-	button.classList.add('text-light');
+	// button.classList.add('');
 }
 
 function updateLocalStorage(){
