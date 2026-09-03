@@ -8,7 +8,7 @@ let registerForm = document.querySelector("#Register form"),
 	trEle,
 	inputFocus,
 	otherButtons,
-	formButton,
+	formButton = registerForm.querySelector('button.basic'),
 	id = 0,
 	regexInputs = {
 		firstName : /^[\s]*[A-Za-z]{3,}[\s]*$/,
@@ -75,7 +75,7 @@ searchInput.addEventListener('keyup',function(){
 resetButton.addEventListener('click',function(e){
 	e.preventDefault(e);
 		resetForm();
-		let formButton = registerForm.querySelector('button.basic');
+		formButton = registerForm.querySelector('button.basic');
 		if(formButton.className.includes('edit')){
 			registerForm.dataset.type = 'edit';//because resetForm(); make type 'add' so without it when click on resetButton and put data then enter it added as new row not edit existing row			
 		}else if(formButton.className.includes('add')){
