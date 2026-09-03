@@ -70,7 +70,23 @@
     }
 }
 
-@media (min-width: 769px) and (max-width: 1300px) {}
+@media (min-width: 769px) and (max-width: 1300px) {
+	#Register .container .head img {
+        width: 20%;
+    }
+
+    #Register .container form {
+        width: 400px;
+    }
+
+    #Register .container form label {
+        width: 11%;
+    }
+
+    #Data {
+        width: 82%;
+    }
+}
 
 @media (min-width: 992px) and (max-width: 1300px) {}
 
