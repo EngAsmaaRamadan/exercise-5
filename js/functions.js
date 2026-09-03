@@ -87,13 +87,8 @@ function showStudent(student){
 }
 
 function checkEditOrUndo(btn){
-
-	//btn.addEventListener('click',function(e){
-
 		let BtnType = btn.getAttribute('data-type');
-		return BtnType;
-			
-		
+		return BtnType;	
 }
 
 function addStudent(){
@@ -128,12 +123,18 @@ function checkInvalidaityOrEmpty(studentId = 0){
 	}
 }
 
-function deleteStudent(StudentId,that){
+function updateLargestId(){
 	//update the largest id before delete from array students
-	if(students[students.length - 1].id > id){
-		id =  students[students.length - 1].id;
+	if(students.length > 0){
+		if(students[students.length - 1].id > id){
+			id =  students[students.length - 1].id;
+			localStorage.setItem('largestId',JSON.parse(id));
+		}	
 	}
+}
 
+function deleteStudent(StudentId,that){
+	updateLargestId();
 	let studentIndex = findStudentIndex(StudentId);
 	students.splice(studentIndex,1);
 	updateLocalStorage();
@@ -319,6 +320,7 @@ function convertButton(button,word){
 
 function updateLocalStorage(){
 	localStorage.setItem('students',JSON.stringify(students));
+	localStorage.setItem('largestId',JSON.stringify(id));
 }
 
 function showStudents(data){

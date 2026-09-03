@@ -23,13 +23,16 @@ let registerForm = document.querySelector("#Register form"),
 	popupBox = popup.querySelector('.popup-box'),
 	popupCloseIcon = popup.querySelector('.close'),
 	searchInput = document.querySelector('input#Search');
+if(localStorage.getItem('largestId') === null){
+	localStorage.setItem('largestId',JSON.parse(id));
+}
 
-if(localStorage.getItem("students") === null){
+if(localStorage.getItem("students") === null ){
 	updateLocalStorage();
 	isNoData(students);
 }else{
 	students = JSON.parse(localStorage.getItem('students'));
-	id = students[students.length - 1]?.id ?? id;
+	id = students[students.length - 1]?.id ?? JSON.parse(localStorage.getItem('largestId'));
 	showStudents(students);
 	isNoData(students);
 }
