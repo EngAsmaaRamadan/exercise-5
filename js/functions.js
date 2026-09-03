@@ -332,7 +332,6 @@ function convertButton(button,wordAndIcon){
 		button.classList.add('add');
 		searchInput.removeAttribute('disabled');
 	}
-	// button.classList.add('');
 }
 
 function updateLocalStorage(){

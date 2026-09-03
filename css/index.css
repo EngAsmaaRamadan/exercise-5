@@ -37,9 +37,7 @@
 	top: 8%;
 	right: -15%;
 }
-/*--bs-table-bg
-#243b55
-: var(--third-color);*/
+
 #Register .container form h4{
 	color: #fbed97;
 }
@@ -82,7 +80,6 @@ i{
 	width: max-content;
 	min-width: 100%;
 	margin: 0;
-	/*border: 5px solid #8e96a1;*/
 }
 
 #Data table tr td[colspan="7"]{
