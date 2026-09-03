@@ -46,6 +46,10 @@
 	#Search .search-input {
         width: 250px;
     }
+
+    .popup .popup-box {
+        width: 350px;
+    }
 }
 
 @media (min-width: 577px) and (max-width: 1300px) {
@@ -67,6 +71,10 @@
 
     #Data {
         width: 79%;
+    }
+
+    .popup .popup-box {
+        width: 450px;
     }
 }
 

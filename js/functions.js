@@ -193,8 +193,8 @@ function findStudentIndex(id){
 
 function insertStudent(id,that){
 	resetForm();
-	let editStudent = students.find((student) => (student.id == id) );
-	formButton = registerForm.querySelector('button.add');
+	let editStudent = students.find((student) => (student.id == id) ),
+		formButton = registerForm.querySelector('button.basic');
 
 	registerInputs.forEach(function(input){
 		input.value = editStudent[input.name];
@@ -310,10 +310,14 @@ function convertButton(button,word){
 	button.textContent = word;
 	if(word == 'Edit'){
 		button.classList.remove('btn-success');
+		button.classList.remove('add');
+		button.classList.add('edit');
 		button.classList.add('btn-info');
 	}else if(word == 'Add'){
 		button.classList.remove('btn-info');
 		button.classList.add('btn-success');
+		button.classList.remove('edit');
+		button.classList.add('add');
 	}
 	button.classList.add('text-light');
 }

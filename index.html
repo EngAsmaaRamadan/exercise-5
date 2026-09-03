@@ -24,34 +24,34 @@
 				<i class="fa-solid fa-rotate-left position-absolute reset-icon d-none"></i>
 				<div class="input-group flex-nowrap mb-3">
 				  <label class="input-group-text" for="FirstName"><i class="fa-solid fa-user"></i></label>
-				  <input  autocomplete="off" data-valid="false" type="text" class="form-control" placeholder="First Name *" id="FirstName" name="firstName">
+				  <input required autocomplete="off" data-valid="false" type="text" class="form-control" placeholder="First Name *" id="FirstName" name="firstName">
 				</div>
 				<p class="d-none alert alert-danger" data-error-name="firstName" role="alert"></p>
 
 				<div class="input-group flex-nowrap mb-3">
 				  <label class="input-group-text" for="LastName"><i class="fa-solid fa-user"></i></label>
-				  <input  autocomplete="off" data-valid="false" type="text" class="form-control" placeholder="Last Name *" id="LastName" name="lastName">
+				  <input required autocomplete="off" data-valid="false" type="text" class="form-control" placeholder="Last Name *" id="LastName" name="lastName">
 				</div>
 				<p class="d-none alert alert-danger" data-error-name="lastName" role="alert"></p>
 
 				<div class="input-group flex-nowrap mb-3">
 				  <label class="input-group-text" for="Email"><i class="fa-solid fa-envelope"></i></label>
-				  <input  autocomplete="off" data-valid="false" type="text" class="form-control" placeholder="Email *" id="Email" name="email">
+				  <input required autocomplete="off" data-valid="false" type="text" class="form-control" placeholder="Email *" id="Email" name="email">
 				</div>
 				<p class="d-none alert alert-danger" data-error-name="email" role="alert"></p>
 
 				<div class="input-group flex-nowrap mb-3">
 				  <label class="input-group-text" for="Age"><i class="fa-solid fa-hashtag"></i></label>
-				  <input  autocomplete="off" data-valid="false" type="text" class="form-control" placeholder="Age *" id="Age" name="age">
+				  <input required autocomplete="off" data-valid="false" type="text" class="form-control" placeholder="Age *" id="Age" name="age">
 				</div>
 				<p class="d-none alert alert-danger" data-error-name="age" role="alert"></p>
 
 				<div class="input-group flex-nowrap mb-3">
 				  <label class="input-group-text" for="Phone"><i class="fa-solid fa-mobile"></i></label>
-				  <input  autocomplete="off" data-valid="false" type="text" class="form-control" placeholder="Phone *" id="Phone" name="phone">
+				  <input required autocomplete="off" data-valid="false" type="text" class="form-control" placeholder="Phone *" id="Phone" name="phone">
 				</div>
 				<p class="d-none alert alert-danger" data-error-name="phone" role="alert"></p>
-				<button class="btn w-100 btn-success add">Add</button>
+				<button class="btn w-100 btn-success add basic">Add</button>
 				<button class="btn btn-success clear d-none">clear</button>
 			</form>
 		</div>
@@ -62,7 +62,7 @@
 		<div class="search-input input-group flex-nowrap m-auto mb-3">
 			<label class="input-group-text" for="Search"><i class="fa-solid fa-magnifying-glass"></i></label>
 			<!-- why when click on label not the same when click on the input??? although the id and for are equal -->
-			<input type="text" class="form-control" placeholder="Search..." id="Search" name="search">
+			<input requiredtype="text" class="form-control" placeholder="Search..." id="Search" name="search">
 		</div>
 </section>
 <section id="Data" class="m-auto pt-3 pb-5">
