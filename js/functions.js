@@ -199,6 +199,10 @@ function insertStudent(id,that){
 	registerInputs.forEach(function(input){
 		input.value = editStudent[input.name];
 		input.dataset.valid = true;//because when press edit it doesn't edit or add because of data-valid="false" (because form was empty)
+
+		input.addEventListener('blur',function(){
+			checkInput(input,id);
+		});
 	});
 	let otherButtons = document.querySelectorAll('#Data button');
 	disabledButtons(otherButtons,1);

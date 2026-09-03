@@ -38,23 +38,15 @@ if(localStorage.getItem("students") === null ){
 	isNoData(students);
 }
 
-if(registerForm.getAttribute('data-type') == 'add'){
-	registerInputs.forEach(function(input){
-		input.addEventListener('focus',function(){
-			resetButton.classList.remove('d-none');
-		});
-		input.addEventListener('blur',function(){
-			resetButton.classList.remove('d-none');
-		});
-	});
-}
-
 registerInputs.forEach(function(input){
+	input.addEventListener('focus',function(){
+		resetButton.classList.remove('d-none');
+	});
 	input.addEventListener('blur',function(){
+		resetButton.classList.remove('d-none');
 		checkInput(input);
 	});
 });
-
 
 registerForm.addEventListener('submit',function(e){
 	e.preventDefault();
