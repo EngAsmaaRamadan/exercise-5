@@ -275,35 +275,47 @@ function editStudent(){
 		if(checkInvalidaityOrEmpty(studentId)){
 			return;
 		}
-		students[studentIndex] = student;
-		let trEle = tableBody.querySelector(`tr[data-student-edit-id="${studentId}"]`);
-		trEle.innerHTML = `
-			<th class="fw-normal">${student.id}</th>
-			<td>${student.firstName}</td>
-			<td>${student.lastName}</td>
-			<td>${student.email}</td>
-			<td>${student.age}</td>
-			<td>${student.phone}</td>
-			<td>
-				<div class="buttons">
-					<button class="btn btn-info text-light me-2" onclick="insertStudent(${student.id},this)" data-type="edit" >Edit</button>
-					<button class="btn btn-danger" onclick="confirmDelete(${student.id},this);">Delete</button>
-				</div>
-			</td>
-		`;
-		trEle.classList.add('table-success');
-		setTimeout(function(){
-			trEle.classList.remove('table-success');
-		},1000);
-		resetIcon.classList.add('d-none');
-		let otherButtons = document.querySelectorAll('#Data button');
-		disabledButtons(otherButtons,2);
-		resetForm();
-		closePopup();
-		formButton = registerForm.querySelector('button');
-		convertButton(formButton,"Add");
-		updateLocalStorage();
+
+		if(checkIfChanged(student,studentIndex)){
+			students[studentIndex] = student;
+			let trEle = tableBody.querySelector(`tr[data-student-edit-id="${studentId}"]`);
+			trEle.innerHTML = `
+				<th class="fw-normal">${student.id}</th>
+				<td>${student.firstName}</td>
+				<td>${student.lastName}</td>
+				<td>${student.email}</td>
+				<td>${student.age}</td>
+				<td>${student.phone}</td>
+				<td>
+					<div class="buttons">
+						<button class="btn btn-info text-light me-2" onclick="insertStudent(${student.id},this)" data-type="edit" >Edit</button>
+						<button class="btn btn-danger" onclick="confirmDelete(${student.id},this);">Delete</button>
+					</div>
+				</td>
+			`;
+			trEle.classList.add('table-success');
+			setTimeout(function(){
+				trEle.classList.remove('table-success');
+			},1000);
+			resetIcon.classList.add('d-none');
+			let otherButtons = document.querySelectorAll('#Data button');
+			disabledButtons(otherButtons,2);
+			resetForm();
+			closePopup();
+			formButton = registerForm.querySelector('button.basic');
+			convertButton(formButton,"Add");
+			updateLocalStorage();
+		}else{
+			closePopup();
+			// formButton = registerForm.querySelector('button.basic');
+			// convertButton(formButton,"Edit");
+			alert('data doesnt changed');
+		}
 	};
+}
+
+function checkIfChanged(newStudent,studentIndex){
+	return JSON.stringify(students[studentIndex]) !== JSON.stringify(newStudent);
 }
 
 function convertButton(button,word){

@@ -9,7 +9,7 @@
 	}
 
 	#Register .container form .clear{
-		top: 4%;
+		top: -8%;
     	right: 0%;
 	}
 
@@ -39,6 +39,11 @@
         width: 17%;
     }
 
+    #Register .container form .clear {
+        top: 4%;
+        right: -22%;
+    }
+
 	#Data{
 		width: 95%;
 	}
@@ -63,6 +68,10 @@
 
     #Register .container form label {
         width: 13%;
+    }
+
+    #Register .container form .clear {
+        top: 16%;
     }
 
     #Search .search-input {
@@ -107,6 +116,10 @@
 
     #Register .container form label {
         width: 9%;
+    }
+
+    #Register .container form .clear {
+        right: -15%;
     }
 
     #Data {
