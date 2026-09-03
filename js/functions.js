@@ -132,7 +132,6 @@ function deleteStudent(StudentId,that){
 	//update the largest id before delete from array students
 	if(students[students.length - 1].id > id){
 		id =  students[students.length - 1].id;
-		localStorage.setItem('largestId',id.toString());
 	}
 
 	let studentIndex = findStudentIndex(StudentId);

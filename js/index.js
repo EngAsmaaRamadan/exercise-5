@@ -29,7 +29,7 @@ if(localStorage.getItem("students") === null){
 	isNoData(students);
 }else{
 	students = JSON.parse(localStorage.getItem('students'));
-	id = students[students.length - 1]?.id ?? localStorage.getItem('largestId');
+	id = students[students.length - 1]?.id ?? id;
 	showStudents(students);
 	isNoData(students);
 }
