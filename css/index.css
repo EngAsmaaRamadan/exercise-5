@@ -49,6 +49,10 @@
 	width: 9%;
 }
 
+#Register .container form i.reset-icon{
+	color:rgb(255, 243, 205);
+}
+
 #Register i,
 #Search i{
 	color: var(--main-color);
