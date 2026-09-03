@@ -88,6 +88,22 @@
     }
 }
 
-@media (min-width: 992px) and (max-width: 1300px) {}
+@media (min-width: 992px) and (max-width: 1300px) {
+	#Register .container .head img {
+        width: 15%;
+    }
+
+    #Register .container form {
+        width: 500px;
+    }
+
+    #Register .container form label {
+        width: 9%;
+    }
+
+    #Data {
+        width: 89%;
+    }
+}
 
 @media (min-width: 1181px) and (max-width: 1300px) {}
