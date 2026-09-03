@@ -214,7 +214,7 @@ function insertStudent(id,that){
 	that.removeAttribute('disabled');
 	let BtnType = that.getAttribute('data-type');
 	if(BtnType == 'edit'){
-		that.classList.add('btn-primary');
+		that.classList.add('btn-secondary');
 		that.classList.remove('button-edit');
 		that.textContent = 'undo';
 		that.dataset.type = 'reset';
@@ -233,7 +233,7 @@ function insertStudent(id,that){
 }
 
 function removeEffectUndo(otherButtons,that){
-	that.classList.remove('btn-primary');
+	that.classList.remove('btn-secondary');
 	that.classList.add('button-edit');
 	that.innerHTML = '<i class="fa-solid fa-user-pen"></i><span> </span>Edit';
 	that.dataset.type = 'edit';
@@ -343,7 +343,7 @@ function updateLocalStorage(){
 function showStudents(data){
 	tableBody.innerHTML = `
 	<tr>
-		<td colspan="7" class="table-alert d-none table-warning text-center rounded-2 py-3">There are no data</td>
+		<td colspan="7" class="table-alert d-none table-warning text-center py-3">There are no data</td>
 	</tr>
 	`;
 	data.forEach(function(student){
