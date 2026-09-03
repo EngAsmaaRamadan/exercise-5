@@ -67,7 +67,7 @@ function checkInput(input,studentId = 0){
 function showStudent(student){
 	tableBody.innerHTML += `
 		<tr data-student-edit-id="${student.id}">
-			<th>${student.id}</th>
+			<th class="fw-normal">${student.id}</th>
 			<td>${student.firstName}</td>
 			<td>${student.lastName}</td>
 			<td>${student.email}</td>
@@ -278,7 +278,7 @@ function editStudent(){
 		students[studentIndex] = student;
 		let trEle = tableBody.querySelector(`tr[data-student-edit-id="${studentId}"]`);
 		trEle.innerHTML = `
-			<th>${student.id}</th>
+			<th class="fw-normal">${student.id}</th>
 			<td>${student.firstName}</td>
 			<td>${student.lastName}</td>
 			<td>${student.email}</td>
