@@ -311,13 +311,13 @@ function editStudent(){
 			updateLocalStorage();
 		}else{
 			closePopup();
-			alert('data doesnt changed');
+			alert("data doesn't changed");
 		}
 	};
 }
 
 function checkIfChanged(newStudent,studentIndex){
-	return JSON.stringify(students[studentIndex]) !== JSON.stringify(newStudent);
+	return students[studentIndex] !== newStudent;
 }
 
 function convertButton(button,wordAndIcon){
