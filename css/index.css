@@ -86,6 +86,11 @@ i{
 	color:#664d03;
 }
 
+#Data .table-responsive table tbody tr th,
+#Data .table-responsive table tbody tr td{
+	vertical-align: middle;
+}
+
 #Data thead{
 	--bs-table-color: #fff;
     --bs-table-bg: var(--first-color);
