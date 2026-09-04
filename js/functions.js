@@ -317,7 +317,11 @@ function editStudent(){
 }
 
 function checkIfChanged(newStudent,studentIndex){
-	return students[studentIndex] !== newStudent;
+	
+	students[studentIndex].id = newStudent.id.toString();
+	let changed = JSON.stringify(students[studentIndex]) != JSON.stringify(newStudent);
+	students[studentIndex].id = Number(newStudent.id);
+	return changed;
 }
 
 function convertButton(button,wordAndIcon){
