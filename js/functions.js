@@ -310,8 +310,8 @@ function editStudent(){
 			convertButton(formButton,'<i class="fa-solid fa-user-plus"></i><span> </span>Add');
 			updateLocalStorage();
 		}else{
-			closePopup();
 			alert("data doesn't changed");
+			closePopup();
 		}
 	};
 }
